@@ -134,7 +134,7 @@ background:#2a2a2a;
 
 <script>
 
-const API_KEY = "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"
+
 const chat = document.getElementById("chat")
 
 let history = [
@@ -215,7 +215,19 @@ image_url:{url:base64}
 addMessage("Pensando...","bot")
 
 try{
-const response = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+const response = await fetch("http://localhost:3000/chat", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    message: text
+  })
+});
+
+const data = await response.json();
+let reply = data.reply;
+addMessage(reply,"bot");
 method:"POST",
 headers:{
 "Authorization":"Bearer "+API_KEY,
@@ -238,7 +250,7 @@ addMessage("Erro: "+data.error.message,"bot")
 return
 }
 
-let reply = data.choices[0].message.content
+let reply = data.reply
 addMessage(reply,"bot")
 
 }catch{
