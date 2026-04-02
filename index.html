@@ -228,21 +228,7 @@ const response = await fetch("http://localhost:3000/chat", {
 const data = await response.json();
 let reply = data.reply;
 addMessage(reply,"bot");
-method:"POST",
-headers:{
-"Authorization":"Bearer "+API_KEY,
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-model:"openai/gpt-4o-mini",
-messages:[
-history[0],
-{role:"user",content:content}
-]
-})
-})
 
-const data = await response.json()
 chat.lastChild.remove()
 
 if(data.error){
